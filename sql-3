@@ -1,0 +1,31 @@
+ use odev01;
+ create database odev01;
+
+CREATE TABLE adresler
+(
+adres_id CHAR(5),    
+sokak VARCHAR(50),
+cadde VARCHAR(30),
+sehir VARCHAR(15),
+CONSTRAINT id_clsnlr FOREIGN KEY(adres_id) REFERENCES calisanlar(id) 
+-- adresler tablosundaki adres_id ile calsanlar tablosundaki id leri 
+-- id_clsnlr isminde  foreign key ile biribirine bagladik 
+-- (solda tablo seçiliyken üstteki info dan ismi kontrol edebilirsin)
+);
+   
+INSERT INTO adresler VALUES('10003','Mutlu Sok', '40.Cad.','IST');
+INSERT INTO adresler VALUES('10003','Can Sok', '50.Cad.','Ankara');
+INSERT INTO adresler VALUES('10002','Ağa Sok', '30.Cad.','Antep');
+
+-- parent tabloda olmayan id ile child a ekleme yapamayiz
+INSERT INTO adresler VALUES('10012','Ağa Sok', '30.Cad.','Antep');
+   
+-- FK'ye null değeri atanabilir.
+INSERT INTO adresler VALUES(NULL,'Ağa Sok', '30.Cad.','Antep');
+INSERT INTO adresler VALUES(NULL,'Ağa Sok', '30.Cad.','Maraş');
+
+select * from adresler;
+
+select * from calisanlar;
+
+SELECT * FROM calisanlar, adresler WHERE calisanlar.id = adresler.adres_id;
